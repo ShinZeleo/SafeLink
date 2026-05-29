@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Perhatikan Domain",
+    "shortDesc": "Jangan tertipu domain mirip. Google.com aman, tapi g00gle.com mungkin phishing.",
+    "longDesc": "Typo-squatting adalah teknik di mana penyerang membuat domain yang sangat mirip dengan domain asli. Selalu periksa ejaan URL."
+  },
+  {
+    "id": 2,
+    "title": "Gunakan HTTPS",
+    "shortDesc": "Pastikan link memiliki ikon gembok (HTTPS) untuk enkripsi data Anda.",
+    "longDesc": "Koneksi HTTPS mengenkripsi data antara browser Anda dan server, mencegah pihak ketiga mencuri informasi sensitif seperti password."
+  },
+  {
+    "id": 3,
+    "title": "Hati-hati Link Pendek",
+    "shortDesc": "Link bit.ly atau s.id menyembunyikan tujuan asli. Scan dulu sebelum klik.",
+    "longDesc": "Penyerang sering menggunakan URL shortener untuk menyembunyikan link berbahaya. Selalu gunakan URL scanner untuk melihat tujuan aslinya."
+  },
+  {
+    "id": 4,
+    "title": "Waspada Penawaran Menggiurkan",
+    "shortDesc": "Jika hadiahnya terlalu bagus untuk menjadi kenyataan, itu biasanya penipuan.",
+    "longDesc": "Phishing sering menggunakan taktik 'Hadiah Gratis' atau 'Diskon 90%' untuk memancing korban. Tetap skeptis dan selalu periksa kebenarannya."
+  },
+  {
+    "id": 5,
+    "title": "Cek Karakter Aneh",
+    "shortDesc": "Karakter seperti @, angka di tengah kata, atau huruf asing bisa jadi trik phishing.",
+    "longDesc": "Penyerang bisa menggunakan huruf dari bahasa lain yang terlihat mirip dengan huruf latin (Homograph Attack) untuk mengelabui Anda."
+  }
+]

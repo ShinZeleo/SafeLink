@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <!-- Red circle background -->
+    <path
+        android:fillColor="#1AFF3B5C"
+        android:pathData="M32,4 A28,28 0 1,0 32,60 A28,28 0 1,0 32,4 Z" />
+
+    <!-- Circle border -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#ff2047"
+        android:strokeWidth="2"
+        android:pathData="M32,6 A26,26 0 1,0 32,58 A26,26 0 1,0 32,6 Z" />
+
+    <!-- X mark -->
+    <path
+        android:strokeColor="#ff2047"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M22,22 L42,42 M42,22 L22,42" />
+
+</vector>

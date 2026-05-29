@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">SafeLink</string>
+    <string name="app_tagline">Link Safety Scanner</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Beranda</string>
+    <string name="nav_history">Riwayat</string>
+    <string name="nav_tips">Tips</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- Labels -->
+    <string name="label_total_scans">Total Scan</string>
+    <string name="label_safe_scans">Link Aman</string>
+    <string name="label_recent_scans">Riwayat Terbaru</string>
+    <string name="label_scanned_url">URL yang Diperiksa</string>
+    <string name="label_risk_level">Tingkat Risiko</string>
+    <string name="label_recommendation">Rekomendasi</string>
+    <string name="label_profile">Profil Pengguna</string>
+    <string name="label_settings">Pengaturan</string>
+    <string name="label_about">Tentang SafeLink</string>
+    <string name="label_login_tagline">Keamanan Digital di Tangan Anda</string>
+    <string name="label_register_title">Buat Akun Baru</string>
+    <string name="label_register_tagline">Lengkapi data diri untuk memulai.</string>
+    <string name="label_already_have_account">Sudah punya akun? </string>
+    <string name="label_no_account">Belum punya akun? </string>
+    <string name="label_user_placeholder">SafeLink User</string>
+    <string name="label_pro_member">PRO MEMBER</string>
+    <string name="label_tips_title">Tips Keamanan</string>
+    <string name="label_tips_tagline">Lindungi privasi dan data digital Anda.</string>
+    <string name="label_history_title">Riwayat Scan</string>
+
+    <!-- Placeholders / Formats -->
+    <string name="format_number">%d</string>
+    <string name="format_risk">Risiko: %s</string>
+    <string name="format_checked_at">Diperiksa pada %s</string>
+
+    <!-- Buttons -->
+    <string name="btn_login">MASUK</string>
+    <string name="btn_register">DAFTAR SEKARANG</string>
+    <string name="btn_scan">SCAN SEKARANG</string>
+    <string name="btn_save_history">SIMPAN KE RIWAYAT</string>
+    <string name="btn_scan_another">SCAN LINK LAIN</string>
+    <string name="btn_logout">KELUAR DARI AKUN</string>
+    <string name="btn_paste">Paste</string>
+    <string name="btn_copy">Salin</string>
+    <string name="btn_clear">Hapus</string>
+    <string name="btn_see_all">Lihat Semua</string>
+    <string name="desc_info">Informasi Aplikasi</string>
+
+    <!-- Hints -->
+    <string name="hint_enter_url">Masukkan atau tempel URL&#8230;</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_full_name">Nama Lengkap</string>
+
+    <!-- Errors -->
+    <string name="error_empty_url">URL tidak boleh kosong</string>
+    <string name="error_invalid_url">Format URL tidak valid</string>
+    <string name="error_no_internet">Tidak ada koneksi internet</string>
+    <string name="error_api">Gagal memindai. Coba lagi nanti.</string>
+    <string name="error_timeout">Koneksi lemot. Coba lagi.</string>
+    <string name="error_login_failed">Username atau password salah</string>
+    <string name="error_empty_fields">Harap isi semua kolom</string>
+
+    <!-- Preferences -->
+    <string name="pref_dark_mode">Mode Gelap</string>
+    <string name="pref_clear_history">Hapus Semua Riwayat</string>
+
+    <!-- Messages -->
+    <string name="empty_recent">Belum ada riwayat scan</string>
+    <string name="empty_history">Belum ada riwayat pemindaian.</string>
+    <string name="msg_history_cleared">Riwayat berhasil dihapus</string>
+    <string name="msg_url_copied">URL disalin ke clipboard</string>
+    <string name="msg_saved_to_history">Berhasil disimpan ke riwayat</string>
+    <string name="dialog_clear_title">Hapus Riwayat</string>
+    <string name="dialog_clear_msg">Apakah Anda yakin ingin menghapus semua riwayat pemindaian? Tindakan ini tidak dapat dibatalkan.</string>
+
+    <!-- Recommendations -->
+    <string name="rec_safe">Link ini aman untuk dikunjungi. Tetap waspada terhadap permintaan data pribadi.</string>
+    <string name="rec_suspicious">Link ini mencurigakan. Berhati-hatilah sebelum memasukkan informasi sensitif.</string>
+    <string name="rec_dangerous">Link ini sangat berbahaya! Terdeteksi malware atau phishing. Jangan dilanjutkan.</string>
+
+    <!-- About -->
+    <string name="about_desc">SafeLink adalah solusi keamanan digital yang dirancang untuk melindungi pengguna dari ancaman phishing, malware, dan situs web berbahaya secara real-time. Menggunakan integrasi API VirusTotal, aplikasi ini memindai setiap URL melalui puluhan database keamanan global untuk memastikan keamanan browsing Anda.</string>
+    <string name="about_version">Versi 1.1.0</string>
+    <string name="developer_name"> ShinZeleo</string>
+    <string name="msg_made_by">Made with ❤️ by \u0020</string>
+
+</resources>

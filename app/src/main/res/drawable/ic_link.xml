@@ -1,0 +1,41 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Link chain left circle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#3b9eff"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M9,17 C9,19.2 7.2,21 5,21 C2.8,21 1,19.2 1,17 C1,14.8 2.8,13 5,13 L9,13" />
+    <!-- Link chain right circle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#3b9eff"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M15,7 C15,4.8 16.8,3 19,3 C21.2,3 23,4.8 23,7 C23,9.2 21.2,11 19,11 L15,11" />
+    <!-- Horizontal connector -->
+    <path
+        android:strokeColor="#3b9eff"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M8,12 L16,12" />
+    <!-- Angled break top -->
+    <path
+        android:strokeColor="#11ff99"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M12,8 L12,5" />
+    <!-- Angled break bottom -->
+    <path
+        android:strokeColor="#11ff99"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M12,19 L12,16" />
+</vector>
