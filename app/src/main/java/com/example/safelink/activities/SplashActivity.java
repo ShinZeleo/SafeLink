@@ -22,9 +22,17 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                // Android 14+ uses overrideActivityTransition (non-deprecated)
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
+                        android.R.anim.fade_in, android.R.anim.fade_out);
+            } else {
+                //noinspection deprecation
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
             startActivity(intent);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }, SPLASH_DELAY_MS);
     }
 }
+

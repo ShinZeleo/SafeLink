@@ -84,6 +84,6 @@
     <string name="about_desc">SafeLink adalah solusi keamanan digital yang dirancang untuk melindungi pengguna dari ancaman phishing, malware, dan situs web berbahaya secara real-time. Menggunakan integrasi API VirusTotal, aplikasi ini memindai setiap URL melalui puluhan database keamanan global untuk memastikan keamanan browsing Anda.</string>
     <string name="about_version">Versi 1.1.0</string>
     <string name="developer_name"> ShinZeleo</string>
-    <string name="msg_made_by">Made with ❤️ by \u0020</string>
+    <string name="msg_made_by">\u0020</string>
 
 </resources>

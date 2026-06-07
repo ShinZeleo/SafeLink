@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- === LIGHT MODE: SafeLink Security (Clean & Premium) === -->
+    <!-- === PREMIUM LIGHT MODE (Modern & Clean) === -->
 
-    <!-- Backgrounds: A sleek, barely-there cool gray for the canvas -->
-    <color name="canvas">#F5F7FA</color>
+    <!-- Backgrounds -->
+    <color name="canvas">#F8FAFC</color> <!-- Modern Slate 50 -->
     
     <!-- Surface Colors -->
-    <color name="surface_card">#E6FFFFFF</color> <!-- Stronger white for frosted glass -->
+    <color name="surface_card">#E6FFFFFF</color>
     <color name="surface_elevated">#FFFFFF</color>
-    <color name="surface_deep">#EAECEF</color>
+    <color name="surface_deep">#F1F5F9</color>
     <color name="surface_bright">#FFFFFF</color>
-    <color name="surface_variant">#D1D5DB</color>
-    <color name="surface_glass">#CCFFFFFF</color>
+    <color name="surface_variant">#E2E8F0</color>
+    <color name="surface_glass">#80FFFFFF</color>
 
-    <!-- Brand Primary (Vibrant Orange for Action) -->
-    <color name="primary">#FF6D00</color>
+    <!-- Brand Primary (Modern Blue) -->
+    <color name="primary">#0EA5E9</color> <!-- Sky 500 -->
     <color name="primary_on">#FFFFFF</color>
-    <color name="primary_light">#FF9E40</color>
-    <color name="primary_container">#FFE0B2</color>
+    <color name="primary_light">#38BDF8</color> <!-- Sky 400 -->
+    <color name="primary_container">#E0F2FE</color> <!-- Sky 100 -->
 
-    <!-- Brand Secondary (Deep Security Green) -->
-    <color name="accent_green">#00C853</color>
-    <color name="secondary_container">#B9F6CA</color>
+    <!-- Brand Secondary (Security Green) -->
+    <color name="accent_green">#10B981</color>
+    <color name="secondary_container">#D1FAE5</color>
 
     <!-- Semantic Accents -->
-    <color name="accent_orange">#FF6D00</color>
-    <color name="accent_yellow">#FFAB00</color>
-    <color name="accent_blue">#2962FF</color>
-    <color name="accent_red">#D50000</color>
-    <color name="accent_teal">#00BFA5</color>
+    <color name="accent_orange">#F59E0B</color>
+    <color name="accent_yellow">#FBBF24</color>
+    <color name="accent_blue">#3B82F6</color>
+    <color name="accent_red">#EF4444</color>
+    <color name="accent_teal">#14B8A6</color>
 
     <!-- Text Typography -->
-    <color name="ink">#111827</color> <!-- Nearly black for high contrast -->
-    <color name="body">#374151</color>
-    <color name="charcoal">#4B5563</color>
-    <color name="mute">#9CA3AF</color>
+    <color name="ink">#0F172A</color> <!-- Slate 900 -->
+    <color name="body">#334155</color> <!-- Slate 700 -->
+    <color name="charcoal">#64748B</color> <!-- Slate 500 -->
+    <color name="mute">#94A3B8</color> <!-- Slate 400 -->
 
     <!-- Hairlines / Strokes -->
-    <color name="hairline">#1A000000</color>
-    <color name="hairline_strong">#33000000</color>
+    <color name="hairline">#1A0F172A</color>
+    <color name="hairline_strong">#330F172A</color>
     <color name="divider_soft">#0F000000</color>
 
     <!-- Status Colors -->
-    <color name="status_safe_bg">#E8F5E9</color>
-    <color name="status_suspicious_bg">#FFF8E1</color>
-    <color name="status_dangerous_bg">#FFEBEE</color>
+    <color name="status_safe_bg">#DCFCE7</color>
+    <color name="status_suspicious_bg">#FEF3C7</color>
+    <color name="status_dangerous_bg">#FEE2E2</color>
 
     <!-- Error -->
-    <color name="error">#D50000</color>
-    <color name="error_container">#FFCDD2</color>
+    <color name="error">#EF4444</color>
+    <color name="error_container">#FEE2E2</color>
 </resources>

@@ -3,10 +3,10 @@
     android:shape="rectangle">
     <gradient
         android:type="radial"
-        android:gradientRadius="800dp"
-        android:centerX="0.3"
-        android:centerY="0.15"
-        android:startColor="@color/surface_elevated"
+        android:gradientRadius="1000dp"
+        android:centerX="0.2"
+        android:centerY="0.1"
+        android:startColor="@color/surface_variant"
         android:centerColor="@color/canvas"
         android:endColor="@color/canvas" />
 </shape>

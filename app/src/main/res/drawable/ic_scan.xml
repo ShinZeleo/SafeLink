@@ -3,24 +3,22 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- Magnifier circle -->
+    <!-- Outer Corners -->
     <path
-        android:fillColor="#00000000"
-        android:strokeColor="#11ff99"
-        android:strokeWidth="2"
-        android:pathData="M10,3 A7,7 0 1,0 10,17 A7,7 0 1,0 10,3 Z" />
-    <!-- Magnifier handle -->
-    <path
-        android:strokeColor="#11ff99"
-        android:strokeWidth="2"
+        android:strokeColor="#0F172A"
+        android:strokeWidth="1.5"
         android:strokeLineCap="round"
-        android:fillColor="#00000000"
-        android:pathData="M15.5,15.5 L21,21" />
-    <!-- Inner scan lines -->
+        android:pathData="M7,4H5C4.4,4,4,4.4,4,5v2 M17,4h2c0.6,0,1,0.4,1,1v2 M4,17v2c0,0.6,0.4,1,1,1h2 M20,17v2c0,0.6,-0.4,1,-1,1h-2" />
+
+    <!-- Scanning Line -->
     <path
-        android:strokeColor="#3b9eff"
-        android:strokeWidth="1"
+        android:strokeColor="@color/primary"
+        android:strokeWidth="1.2"
         android:strokeLineCap="round"
-        android:fillColor="#00000000"
-        android:pathData="M7,8 L13,8 M7,10.5 L13,10.5 M7,13 L11,13" />
+        android:pathData="M6,12h12" />
+
+    <!-- QR Elements -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M8,7h3v3H8V7z M13,7h3v3h-3V7z M8,14h3v3H8V14z M13,14h1v1h-1V14z M15,15h1v1h-1V15z M13,16h1v1h-1V16z M15,14h1v1h-1V14z" />
 </vector>

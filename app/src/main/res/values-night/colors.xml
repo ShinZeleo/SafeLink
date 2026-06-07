@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- === DARK MODE: SafeLink Security (Refined Dark Mode) === -->
+    <!-- === PREMIUM DARK MODE (Slate & Deep Blue) === -->
 
-    <!-- Backgrounds: Using a slightly lighter dark color to avoid "pure black" issues -->
-    <color name="canvas">#121212</color>
+    <!-- Backgrounds -->
+    <color name="canvas">#0F172A</color> <!-- Deep Slate 900 -->
 
     <!-- Surface Colors -->
-    <color name="surface_card">#1E1E1E</color>
-    <color name="surface_elevated">#2C2C2E</color>
-    <color name="surface_deep">#0A0A0A</color>
-    <color name="surface_bright">#38383A</color>
-    <color name="surface_variant">#3E3E40</color>
-    <color name="surface_glass">#26FFFFFF</color>
+    <color name="surface_card">#1A1E293B</color> <!-- Glassy Slate 800 -->
+    <color name="surface_elevated">#1E293B</color>
+    <color name="surface_deep">#020617</color>
+    <color name="surface_bright">#334155</color>
+    <color name="surface_variant">#334155</color>
+    <color name="surface_glass">#1AFFFFFF</color>
 
-    <!-- Brand Primary (Vibrant Orange) -->
-    <color name="primary">#FF8A00</color>
+    <!-- Brand Primary (Vibrant Blue) -->
+    <color name="primary">#38BDF8</color> <!-- Sky 400 -->
     <color name="primary_on">#FFFFFF</color>
-    <color name="primary_light">#FFB77F</color>
-    <color name="primary_container">#33FF8A00</color>
+    <color name="primary_light">#7DD3FC</color> <!-- Sky 300 -->
+    <color name="primary_container">#1A38BDF8</color>
 
     <!-- Brand Secondary (Green = Safe) -->
-    <color name="accent_green">#42E18D</color>
-    <color name="secondary_container">#1A42E18D</color>
+    <color name="accent_green">#34D399</color>
+    <color name="secondary_container">#1A34D399</color>
 
     <!-- Semantic Accents -->
-    <color name="accent_orange">#FF8A00</color>
-    <color name="accent_yellow">#FFD47F</color>
-    <color name="accent_blue">#5EADFF</color>
-    <color name="accent_red">#FF897D</color>
-    <color name="accent_teal">#7FCECD</color>
+    <color name="accent_orange">#F59E0B</color>
+    <color name="accent_yellow">#FBBF24</color>
+    <color name="accent_blue">#60A5FA</color>
+    <color name="accent_red">#F87171</color>
+    <color name="accent_teal">#2DD4BF</color>
 
     <!-- Text -->
-    <color name="ink">#F9FAFB</color>
-    <color name="body">#E5E7EB</color>
-    <color name="charcoal">#9CA3AF</color>
-    <color name="mute">#6B7280</color>
+    <color name="ink">#F8FAFC</color>
+    <color name="body">#CBD5E1</color>
+    <color name="charcoal">#94A3B8</color>
+    <color name="mute">#64748B</color>
 
     <!-- Hairlines -->
     <color name="hairline">#1AFFFFFF</color>
@@ -42,11 +42,11 @@
     <color name="divider_soft">#0DFFFFFF</color>
 
     <!-- Status colors -->
-    <color name="status_safe_bg">#1A42E18D</color>
-    <color name="status_suspicious_bg">#1AFF8A00</color>
-    <color name="status_dangerous_bg">#1AFFB4AB</color>
+    <color name="status_safe_bg">#1A34D399</color>
+    <color name="status_suspicious_bg">#1AF59E0B</color>
+    <color name="status_dangerous_bg">#1AF87171</color>
 
     <!-- Error -->
-    <color name="error">#FF897D</color>
-    <color name="error_container">#26FF897D</color>
+    <color name="error">#F87171</color>
+    <color name="error_container">#1AF87171</color>
 </resources>
