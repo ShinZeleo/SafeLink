@@ -33,6 +33,7 @@ import com.example.safelink.network.ApiClient;
 import com.example.safelink.utils.DateFormatter;
 import com.example.safelink.utils.NetworkHelper;
 import com.example.safelink.utils.ValidationHelper;
+import com.google.gson.Gson;
 import androidx.activity.result.ActivityResultLauncher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -88,7 +89,6 @@ public class HomeFragment extends Fragment {
         etUrl = view.findViewById(R.id.et_url);
         btnScan = view.findViewById(R.id.btn_scan);
         btnPaste = view.findViewById(R.id.btn_paste);
-        View btnClean = view.findViewById(R.id.btn_clean_url);
         View btnScanQr = view.findViewById(R.id.btn_scan_qr);
         btnInfo = view.findViewById(R.id.btn_info);
         lottieLoading = view.findViewById(R.id.lottie_loading);
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
         repo = new HistoryRepository(requireContext());
 
         setupRecentRecyclerView();
-        setupListeners(btnClean);
+        setupListeners(btnScanQr, view.findViewById(R.id.btn_see_all));
         loadDailyTip();
         
         // UX Polish: Entrance animation
@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment {
         view.animate().alpha(1f).setDuration(500).start();
     }
 
-    private void setupListeners(View btnClean) {
+    private void setupListeners(View btnScanQr, View btnSeeAll) {
         etUrl.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -145,15 +145,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btnClean.setOnClickListener(v -> {
-            String url = etUrl.getText() != null ? etUrl.getText().toString() : "";
-            if (!url.isEmpty()) {
-                String cleaned = com.example.safelink.utils.UrlCleanerUtil.cleanUrl(url);
-                etUrl.setText(cleaned);
-                Toast.makeText(requireContext(), "URL Cleaned", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         btnScan.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -161,6 +152,8 @@ public class HomeFragment extends Fragment {
                     break;
                 case MotionEvent.ACTION_UP:
                     v.performClick();
+                    v.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.button_release));
+                    break;
                 case MotionEvent.ACTION_CANCEL:
                     v.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.button_release));
                     break;
@@ -172,7 +165,6 @@ public class HomeFragment extends Fragment {
 
         btnInfo.setOnClickListener(v -> showInfoDialog());
 
-        View btnScanQr = getView().findViewById(R.id.btn_scan_qr);
         if (btnScanQr != null) {
             btnScanQr.setOnClickListener(v -> {
                 ScanOptions options = new ScanOptions();
@@ -184,6 +176,15 @@ public class HomeFragment extends Fragment {
                 barcodeLauncher.launch(options);
             });
         }
+
+        if (btnSeeAll != null) {
+            btnSeeAll.setOnClickListener(v -> {
+                // Navigate to History Fragment
+                if (getActivity() instanceof com.example.safelink.MainActivity) {
+                    ((com.example.safelink.MainActivity) getActivity()).navigateToHistory();
+                }
+            });
+        }
     }
 
     @Override
@@ -193,9 +194,31 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Cancel any pending runnables posted to views (e.g. setUrlFromExternal)
+        if (etUrl != null) ((View) etUrl).removeCallbacks(null);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        executor.shutdown();
+        if (!executor.isShutdown()) {
+            executor.shutdown();
+        }
+    }
+
+    /**
+     * Feature 1: Called by MainActivity when app is opened via Share intent or clipboard snackbar.
+     * Pre-fills the URL input field and optionally triggers the scan.
+     */
+    public void setUrlFromExternal(String url) {
+        if (etUrl != null && url != null) {
+            etUrl.setText(url);
+            etUrl.setSelection(url.length());
+            // Auto-trigger scan after a short delay for smooth UX
+            etUrl.postDelayed(this::onScanClicked, 200);
+        }
     }
 
     private void onScanClicked() {
@@ -277,7 +300,8 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<ApiResponse> call, @NonNull Response<ApiResponse> response) {
                 setLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
-                    ScanResult result = ScanResult.fromApiResponse(response.body(), url);
+                    ApiResponse apiResp = response.body();
+                    ScanResult result = ScanResult.fromApiResponse(apiResp, url);
                     result.setScannedAt(DateFormatter.getCurrentTimestamp());
                     
                     // Save to SQLite Cache
@@ -291,7 +315,7 @@ public class HomeFragment extends Fragment {
                         repo.insert(history);
                     });
 
-                    openResult(result);
+                    openResult(result, apiResp);
                 } else {
                     String errorText;
                     if (response.code() == 401 || response.code() == 403) errorText = "API Key tidak valid atau Limit API tercapai.";
@@ -313,14 +337,22 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void openResult(ScanResult result) {
+    private void openResult(ScanResult result, ApiResponse apiResponse) {
         Intent intent = new Intent(requireContext(), ResultActivity.class);
         intent.putExtra(ResultActivity.EXTRA_URL, result.getUrl());
         intent.putExtra(ResultActivity.EXTRA_STATUS, result.getStatus());
         intent.putExtra(ResultActivity.EXTRA_RISK_LEVEL, result.getRiskLevel());
         intent.putExtra(ResultActivity.EXTRA_RECOMMENDATION, result.getRecommendation());
         intent.putExtra(ResultActivity.EXTRA_SCANNED_AT, result.getScannedAt());
+        // Feature 3: Pass ApiResponse as JSON for detailed engine display
+        if (apiResponse != null) {
+            intent.putExtra(ResultActivity.EXTRA_API_RESPONSE_JSON, new Gson().toJson(apiResponse));
+        }
         startActivity(intent);
+    }
+
+    private void openResult(ScanResult result) {
+        openResult(result, null);
     }
 
     private void openResultFromHistory(HistoryModel item) {
@@ -394,17 +426,23 @@ public class HomeFragment extends Fragment {
     private void loadDailyTip() {
         executor.execute(() -> {
             try {
+                // Use BufferedReader for reliable full-file reading
                 java.io.InputStream is = requireContext().getAssets().open("tips.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                String json = new String(buffer, "UTF-8");
+                java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(is, "UTF-8"));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                reader.close();
+
+                String json = sb.toString();
                 org.json.JSONArray array = new org.json.JSONArray(json);
+                if (array.length() == 0) return;
                 int randomIdx = (int) (Math.random() * array.length());
                 org.json.JSONObject tip = array.getJSONObject(randomIdx);
-                String tipText = tip.getString("title") + ": " + tip.getString("shortDesc");
-                
+                String tipText = tip.optString("title", "") + ": " + tip.optString("shortDesc", "");
+
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
                         if (tvDailyTip != null) tvDailyTip.setText(tipText);
