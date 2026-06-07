@@ -7,51 +7,71 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_main_gradient">
 
-    <!-- Header Toolbar -->
-    <LinearLayout
+    <!-- Premium Custom Toolbar -->
+    <RelativeLayout
         android:id="@+id/ll_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="20dp"
+        android:layout_height="80dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
+        <androidx.cardview.widget.CardView
             android:id="@+id/btn_back"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:src="@drawable/ic_arrow_back"
-            android:background="@drawable/bg_circle_glass"
-            app:tint="@color/ink"
-            android:contentDescription="@string/btn_copy" />
+            android:layout_centerVertical="true"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/surface_card"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/ink" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Analisis Link"
+            android:layout_centerInParent="true"
+            android:text="Analisis Keamanan"
             android:textColor="@color/ink"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:letterSpacing="-0.02"
-            android:layout_marginStart="16dp" />
+            android:letterSpacing="-0.01" />
 
-        <ImageButton
+        <androidx.cardview.widget.CardView
             android:id="@+id/btn_share"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:src="@android:drawable/ic_menu_share"
-            android:background="@drawable/bg_circle_glass"
-            app:tint="@color/ink"
-            android:contentDescription="Share Result" />
-    </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/surface_card"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_share"
+                app:tint="@color/primary" />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:clipToPadding="false"
+        android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/ll_toolbar"
         app:layout_constraintBottom_toTopOf="@id/ll_actions">
 
@@ -61,23 +81,25 @@
             android:orientation="vertical"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
-            android:paddingBottom="24dp">
+            android:paddingBottom="40dp">
 
-            <!-- Status Result Hero -->
+            <!-- Dynamic Result Hero -->
             <LinearLayout
+                android:id="@+id/hero_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_glass_card_premium"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="32dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="24dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:elevation="8dp">
 
                 <FrameLayout
                     android:id="@+id/fl_status_circle"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
                     android:background="@drawable/bg_status_safe">
                     <TextView
                         android:id="@+id/tv_status_icon"
@@ -85,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:text="✓"
                         android:textColor="@color/accent_green"
-                        android:textSize="60sp"
+                        android:textSize="72sp"
                         android:textStyle="bold"
                         android:layout_gravity="center" />
                 </FrameLayout>
@@ -96,10 +118,10 @@
                     android:layout_height="wrap_content"
                     android:text="TRUSTED"
                     android:textColor="@color/accent_green"
-                    android:textSize="28sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
-                    android:letterSpacing="0.05"
-                    android:layout_marginTop="20dp" />
+                    android:letterSpacing="0.08"
+                    android:layout_marginTop="24dp" />
 
                 <TextView
                     android:id="@+id/tv_risk_level"
@@ -108,98 +130,100 @@
                     android:text="Risiko: Rendah"
                     android:textColor="@color/charcoal"
                     android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
                     android:layout_marginTop="4dp" />
 
+                <!-- Score Indicator -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/bg_input"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:layout_marginTop="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_marginTop="24dp"
                     android:gravity="center">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Security Score: "
                         android:textColor="@color/charcoal"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
                     <TextView
                         android:id="@+id/tv_security_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100/100"
                         android:textColor="@color/ink"
-                        android:textSize="14sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- URL Card -->
+            <!-- URL Insight Card -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_glass_card_premium"
+                android:background="@drawable/bg_glass_card"
                 android:orientation="vertical"
                 android:padding="24dp"
                 android:layout_marginBottom="16dp">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:layout_marginBottom="12dp">
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="URL YANG DIPERIKSA"
-                        android:textColor="@color/charcoal"
-                        android:textSize="10sp"
+                        android:text="URL TARGET"
+                        android:textColor="@color/primary"
+                        android:textSize="11sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.1" />
                     <TextView
                         android:id="@+id/btn_copy_url"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:text="Salin"
-                        android:textColor="@color/primary"
+                        android:textColor="@color/accent_blue"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:padding="4dp"
                         android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground" />
-                </LinearLayout>
+                        android:focusable="true" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_scanned_url"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="https://google.com"
-                    android:textColor="@color/accent_blue"
+                    android:textColor="@color/ink"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:lineSpacingMultiplier="1.2" />
             </LinearLayout>
 
             <!-- Recommendation Card -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_glass_card_premium"
+                android:background="@drawable/bg_glass_card"
                 android:orientation="vertical"
                 android:padding="24dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="24dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="REKOMENDASI"
+                    android:text="REKOMENDASI SISTEM"
                     android:textColor="@color/charcoal"
-                    android:textSize="10sp"
+                    android:textSize="11sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.1"
                     android:layout_marginBottom="12dp" />
@@ -207,7 +231,7 @@
                     android:id="@+id/tv_recommendation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="URL ini aman untuk dibuka. Tetap waspada terhadap konten website."
+                    android:text="Link ini aman untuk dikunjungi..."
                     android:textColor="@color/body"
                     android:textSize="15sp"
                     android:lineSpacingMultiplier="1.4" />
@@ -221,11 +245,138 @@
                 android:textColor="@color/mute"
                 android:textSize="12sp"
                 android:gravity="center"
-                android:layout_marginTop="8dp" />
+                android:layout_marginBottom="16dp" />
+
+            <!-- Feature 3: Engine Analysis Stats & List -->
+            <LinearLayout
+                android:id="@+id/card_engine_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_glass_card"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ANALISIS ENGINE ANTIVIRUS"
+                        android:textColor="@color/primary"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1" />
+                    <TextView
+                        android:id="@+id/tv_engine_toggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="Tampilkan ▼"
+                        android:textColor="@color/accent_blue"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/bg_input"
+                        android:padding="12dp"
+                        android:layout_marginEnd="6dp">
+                        <TextView
+                            android:id="@+id/tv_stat_malicious"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/accent_red"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Berbahaya"
+                            android:textColor="@color/charcoal"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/bg_input"
+                        android:padding="12dp"
+                        android:layout_marginEnd="6dp">
+                        <TextView
+                            android:id="@+id/tv_stat_suspicious"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/accent_orange"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mencurigakan"
+                            android:textColor="@color/charcoal"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/bg_input"
+                        android:padding="12dp">
+                        <TextView
+                            android:id="@+id/tv_stat_harmless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/accent_green"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aman"
+                            android:textColor="@color/charcoal"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_engine_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Actions Panel -->
+
+    <!-- Elevated Bottom Actions -->
     <LinearLayout
         android:id="@+id/ll_actions"
         android:layout_width="match_parent"
@@ -234,12 +385,12 @@
         android:padding="20dp"
         android:layout_margin="16dp"
         android:background="@drawable/bg_glass_card_premium"
-        android:elevation="12dp"
+        android:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="54dp"
             android:orientation="horizontal"
             android:layout_marginBottom="12dp">
             
@@ -248,11 +399,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="SIMPAN KE RIWAYAT"
+                android:text="SIMPAN"
                 android:textColor="@color/primary_on"
                 android:textStyle="bold"
-                android:textSize="11sp"
-                app:cornerRadius="24dp"
+                android:textSize="12sp"
+                app:cornerRadius="18dp"
                 android:backgroundTint="@color/primary"
                 android:layout_marginEnd="6dp"
                 android:insetTop="0dp"
@@ -267,9 +418,9 @@
                 android:textColor="@color/ink"
                 android:textStyle="bold"
                 android:textSize="12sp"
-                app:cornerRadius="24dp"
+                app:cornerRadius="18dp"
                 android:backgroundTint="@color/surface_variant"
-                app:strokeColor="@color/hairline_strong"
+                app:strokeColor="@color/hairline"
                 app:strokeWidth="1dp"
                 android:layout_marginStart="6dp"
                 android:insetTop="0dp"
@@ -280,11 +431,11 @@
             android:id="@+id/btn_open_browser"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="OPEN IN BROWSER"
+            android:text="KUNJUNGI SITUS"
             android:textColor="@color/primary_on"
             android:textStyle="bold"
             android:textSize="15sp"
-            app:cornerRadius="24dp"
+            app:cornerRadius="18dp"
             android:backgroundTint="@color/accent_blue"
             android:insetTop="0dp"
             android:insetBottom="0dp"
@@ -297,12 +448,11 @@
             android:text="SCAN LINK LAIN"
             android:textColor="@color/charcoal"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:gravity="center"
-            android:padding="12dp"
+            android:padding="8dp"
             android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground" />
+            android:focusable="true" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
