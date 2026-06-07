@@ -100,8 +100,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             tvStatus.setText(label);
             tvStatus.setTextColor(color);
             tvStatus.setBackgroundResource(bgRes);
-            
+
             if (dotView != null) {
+                // Set both background drawable (shape) and tint for correct color
+                dotView.setBackgroundResource(bgRes);
                 dotView.setBackgroundTintList(ColorStateList.valueOf(color));
             }
 

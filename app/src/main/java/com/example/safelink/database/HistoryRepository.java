@@ -35,19 +35,22 @@ public class HistoryRepository {
     public synchronized List<HistoryModel> getAll() {
         List<HistoryModel> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase(DatabaseHelper.DB_PASSWORD);
-        Cursor cursor = db.query(
-                DatabaseContract.HistoryEntry.TABLE_NAME,
-                null, null, null, null, null,
-                DatabaseContract.HistoryEntry.COL_SCANNED_AT + " DESC"
-        );
-
-        if (cursor.moveToFirst()) {
-            do {
-                list.add(fromCursor(cursor));
-            } while (cursor.moveToNext());
+        Cursor cursor = null;
+        try {
+            cursor = db.query(
+                    DatabaseContract.HistoryEntry.TABLE_NAME,
+                    null, null, null, null, null,
+                    DatabaseContract.HistoryEntry.COL_SCANNED_AT + " DESC"
+            );
+            if (cursor.moveToFirst()) {
+                do {
+                    list.add(fromCursor(cursor));
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) cursor.close();
+            db.close();
         }
-        cursor.close();
-        db.close();
         return list;
     }
 

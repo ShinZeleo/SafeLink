@@ -62,8 +62,9 @@ public class HistoryFragment extends Fragment {
         View btnCta = view.findViewById(R.id.btn_cta_scan);
         if (btnCta != null) {
             btnCta.setOnClickListener(v -> {
-                com.google.android.material.bottomnavigation.BottomNavigationView nav = requireActivity().findViewById(R.id.bottom_nav);
-                if (nav != null) nav.setSelectedItemId(R.id.homeFragment);
+                if (getActivity() instanceof com.example.safelink.MainActivity) {
+                    ((com.example.safelink.MainActivity) getActivity()).navigateToHome();
+                }
             });
         }
     }
