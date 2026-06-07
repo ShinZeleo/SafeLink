@@ -1,95 +1,178 @@
-# 🛡️ SafeLink - Ultimate Link Safety Scanner
+# 🛡️ SafeLink - Ultimate Android Link Safety Scanner
 
-[![Android](https://img.shields.io/badge/Platform-Android-green?style=for-the-badge&logo=android)](https://developer.android.com/)
-[![Java](https://img.shields.io/badge/Language-Java-orange?style=for-the-badge&logo=java)](https://www.oracle.com/java/)
-[![Security](https://img.shields.io/badge/Security-Encrypted-blue?style=for-the-badge&logo=shieldui)](https://sqlcipher.net/)
-[![API](https://img.shields.io/badge/API-VirusTotal_v3-red?style=for-the-badge)](https://developers.virustotal.com/reference/overview)
+<p align="center">
+  <img src="app/src/main/res/drawable/ic_logo_safelink.png" alt="SafeLink Logo" width="120px" />
+</p>
 
-**SafeLink** adalah solusi keamanan digital modern yang dirancang untuk melindungi pengguna dari ancaman phishing, malware, dan situs web berbahaya secara real-time. Dibangun dengan fokus pada privasi dan kemudahan penggunaan, SafeLink memastikan setiap link yang Anda klik adalah aman melalui analisis berlapis.
+<p align="center">
+  <b>SafeLink</b> adalah aplikasi Android modern yang dirancang untuk melindungi pengguna dari ancaman phishing, malware, ransomware, dan situs web berbahaya secara real-time. Dibangun dengan fokus utama pada privasi data dan keindahan visual (Glassmorphism), SafeLink memberikan perlindungan berlapis sebelum Anda membuka tautan apa pun.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Android_9.0+_%28API_28+%29-green?style=for-the-badge&logo=android&logoColor=white" alt="Platform" />
+  <img src="https://img.shields.io/badge/Language-Java_21-orange?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
+  <img src="https://img.shields.io/badge/Security-SQLCipher_AES--256-blue?style=for-the-badge&logo=sqlite&logoColor=white" alt="Security" />
+  <img src="https://img.shields.io/badge/API-VirusTotal_v3-red?style=for-the-badge&logo=virustotal&logoColor=white" alt="VirusTotal" />
+</p>
 
 ---
 
-## ✨ Fitur Utama
+## 🚀 Fitur Utama & Cara Kerja
 
-### 🔍 Real-time Security Scan
+### 🔍 Real-Time VirusTotal Scanner (v3 API)
+SafeLink terintegrasi penuh dengan API VirusTotal v3. Setiap URL diubah menjadi hash Base64 yang valid (tanpa padding) dan diperiksa secara simultan terhadap lebih dari 70 engine keamanan global (seperti Kaspersky, Symantec, Google Safebrowsing, dll.).
 
-Integrasi penuh dengan **VirusTotal API v3**. Setiap URL yang dimasukkan akan dikonversi menjadi ID Base64 (tanpa padding) dan diperiksa melalui puluhan engine antivirus global secara simultan.
+### 📋 Smart Clipboard Monitor
+Aplikasi secara aktif memantau clipboard perangkat secara non-intrusif. 
+* Saat mendeteksi URL baru, sebuah **Snackbar** adaptif akan muncul menawarkan pemindaian sekali klik.
+* Jika URL tersebut sudah diketahui berbahaya di database lokal, aplikasi langsung menampilkan **dialog peringatan kritis** berwarna merah untuk mencegah pembukaan tidak sengaja.
+
+### 📤 Android Share Intent Integration
+Mendukung interaksi antar-aplikasi secara dinamis. Anda dapat langsung membagikan link dari Google Chrome, WhatsApp, Telegram, atau aplikasi lainnya ke SafeLink. Aplikasi akan langsung mengekstrak URL dari teks dan membuka pemindaian secara otomatis.
 
 ### 📸 QR Code Intelligent Scanner
+Menggunakan pustaka **ZXing (Zebra Crossing)** untuk memindai kode QR secara instan menggunakan kamera handphone. Hasil scan langsung divalidasi keamanannya tanpa Anda perlu mengetik URL secara manual.
 
-Menggunakan engine **ZXing (Zebra Crossing)** untuk ekstraksi URL langsung dari kode QR. Memungkinkan pemindaian cepat tanpa perlu input manual yang rawan kesalahan ketik.
+### 🔐 Database Terenkripsi Tingkat Militer (SQLCipher)
+Semua riwayat pemindaian dan situs yang disimpan di bookmark diamankan menggunakan enkripsi **AES-256** melalui **SQLCipher**. Data tidak dapat diakses atau didekripsi oleh aplikasi lain di perangkat yang sama, menjamin kerahasiaan riwayat penelusuran Anda.
 
-### 🔐 Multi-Layer Persistence (SQLCipher)
+### 🌐 Safe Browser Internal
+Jika link dinyatakan aman atau pengguna bersikeras membukanya, SafeLink menyediakan Webview internal cerdas yang dilengkapi dengan pendeteksi heuristik untuk memblokir navigasi berbahaya secara instan jika mendeteksi anomali di tengah jalan.
 
-Data riwayat dan bookmark tidak hanya disimpan secara lokal, tetapi juga dienkripsi menggunakan **AES-256** melalui **SQLCipher**. Ini memastikan data browsing Anda tidak dapat dibaca oleh aplikasi pihak ketiga atau akses file sistem yang tidak sah.
+---
 
-### 🌓 Premium UI & Glassmorphism
+## 📊 Alur Kerja Aplikasi (Workflow)
 
-Antarmuka pengguna yang modern dengan dukungan penuh **Dark & Light Mode**. Menggunakan prinsip desain Glassmorphism dengan transparansi dan blur yang dioptimalkan untuk performa Android.
+Berikut adalah diagram bagaimana SafeLink menganalisis dan mengamankan setiap tautan yang masuk:
 
-### 📊 Algoritma Security Score
-
-Kalkulasi skor keamanan (0-100) berbasis algoritma internal yang menggabungkan:
-
-- Hasil analisis VirusTotal.
-- Validasi protokol HTTPS.
-- Deteksi pola _Typo-squatting_ (domain yang mirip dengan situs populer).
-- Deteksi URL Shortener.
+```mermaid
+graph TD
+    A[Input URL: Manual/QR/Clipboard/Share Intent] --> B(Validation & Normalization)
+    B --> C{Cek Database Lokal Terenkripsi}
+    C -- Ada & Berbahaya --> D[Tampilkan Peringatan Kritis]
+    C -- Tidak Ada / Baru --> E{Jalankan Mesin Heuristik}
+    E -- Lolos Heuristik --> F[Panggil VirusTotal API v3]
+    E -- Terdeteksi Bahaya --> G[Set Skor Bahaya & Tampilkan Hasil]
+    F --> H{Dapatkan Respons API}
+    H --> I[Hitung Skor Keamanan 0 - 100]
+    I --> J[Simpan Hasil Scan Terenkripsi ke SQLite]
+    J --> K[Tampilkan Hasil Detil di ResultActivity]
+```
 
 ---
 
 ## 🛠️ Arsitektur & Teknologi
 
-SafeLink diimplementasikan menggunakan standar industri pengembangan aplikasi Android:
+SafeLink menggunakan arsitektur modern berorientasi performa tinggi untuk mencegah *Application Not Responding (ANR)*:
 
-### Core Frameworks
-
-- **Retrofit 2 & OkHttp**: Menangani request networking API secara asynchronous dengan interceptor kustom untuk autentikasi API Key.
-- **Jetpack Navigation**: Manajemen alur antar fragment yang seamless menggunakan single-activity architecture.
-- **Lottie Framework**: Mengintegrasikan animasi vektor berbasis JSON untuk memberikan feedback visual yang engaging saat proses pemindaian.
-- **Glide**: Library optimasi pemuatan gambar dan favicon secara cepat untuk identifikasi visual website.
-
-### Keamanan & Data
-
-- **SQLCipher**: Implementasi database SQLite tingkat lanjut dengan enkripsi tingkat militer.
-- **SharedPreferences**: Digunakan untuk menyimpan preferensi user (tema, settings) secara efisien.
-- **ExecutorService**: Manajemen background thread yang efisien untuk memastikan UI tetap responsif (mencegah Application Not Responding - ANR).
+* **Retrofit 2 & OkHttp3**: Networking asynchronous yang hemat memori, dilengkapi dengan *Interceptor* global untuk injeksi *x-apikey* secara aman.
+* **Double-Checked Locking Singleton**: Inisialisasi API client yang thread-safe untuk menghemat siklus CPU.
+* **ExecutorService Thread Pool**: Menghindari pemrosesan database dan API pada main thread.
+* **Lottie Animations**: Animasi pemindaian menggunakan file JSON vektor berukuran sangat ringan namun memberikan pengalaman visual berkualitas tinggi.
+* **ThemeHelper & Dynamic Colors**: Dukungan tema Gelap/Terang adaptif serta integrasi warna dinamis Material 3 (menyesuaikan warna wallpaper perangkat pada Android 12+).
 
 ---
 
-## 📐 Detail Teknis Implementasi
+## 💻 Contoh Kode Implementasi Kunci
 
-| Komponen         | Deskripsi Implementasi                                                                                                       |
-| :--------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| **Activity**     | `SplashActivity` (Launcher), `MainActivity` (Nav Host), `ResultActivity` (Detail), `SafeBrowserActivity` (Internal WebView). |
-| **Navigation**   | Implementasi `nav_graph.xml` dengan animasi transisi _slide-in_ dan _fade-on_ kustom antar fragment.                         |
-| **Networking**   | Implementasi `ApiClient` singleton dengan konversi Base64 kustom untuk kompatibilitas endpoint VirusTotal v3.                |
-| **Animation**    | Penggunaan `LottieAnimationView` untuk loading state dan `ObjectAnimator` untuk entrance UI elements.                        |
-| **Safe Browser** | WebView internal cerdas yang memblokir konten berbahaya otomatis sebelum halaman sepenuhnya dimuat.                          |
-| **Unit Testing** | Implementasi `JUnit` untuk memvalidasi logika deteksi keamanan heuristik secara otomatis. |
+### 1. Inisialisasi Database Terenkripsi (SQLCipher)
+```java
+// Memastikan library SQLCipher dimuat sebelum database diakses
+try {
+    net.sqlcipher.database.SQLiteDatabase.loadLibs(context);
+} catch (Throwable t) {
+    Log.e("Database", "Gagal memuat library SQLCipher", t);
+}
+
+// Membuka database dengan kunci enkripsi rahasia
+SQLiteDatabase db = this.getWritableDatabase("KUNCI_RAHASIA_AES256");
+```
+
+### 2. Validasi Heuristik Mandiri (`UrlHeuristicEngine.java`)
+Membatasi panggilan API yang mahal dengan melakukan deteksi cepat secara lokal terhadap pola penipuan:
+```java
+public static int calculateHeuristicScore(String url) {
+    int penalty = 0;
+    if (url.startsWith("http://")) {
+        penalty += 20; // Penalti karena tidak menggunakan HTTPS
+    }
+    if (isShortener(url)) {
+        penalty += 15; // Penalti karena menggunakan shortener URL (potensi kamuflase)
+    }
+    if (containsSuspiciousKeywords(url)) {
+        penalty += 30; // Penalti kata kunci phishing (seperti: 'free-gift', 'login-update')
+    }
+    return Math.min(penalty, 100);
+}
+```
 
 ---
 
-## 🚀 Instalasi & Persiapan
+## 📂 Struktur Repositori
 
-### Prasyarat
+```text
+SafeLink/
+│
+├── app/
+│   ├── build.gradle            # Konfigurasi dependensi & build buildConfigField
+│   └── src/
+│       ├── main/
+│       │   ├── AndroidManifest.xml
+│       │   ├── java/com/example/safelink/
+│       │   │   ├── activities/      # Splash, Main, Result, SafeBrowser
+│       │   │   ├── adapters/        # HistoryAdapter, EngineResultAdapter
+│       │   │   ├── database/        # HistoryRepository, EncryptedDbHelper
+│       │   │   ├── fragments/       # HomeFragment, HistoryFragment, BookmarkFragment
+│       │   │   ├── models/          # ApiResponse, ScanResult, HistoryModel
+│       │   │   ├── network/         # ApiClient, ApiService, RetrofitInstance
+│       │   │   └── utils/           # NetworkHelper, UrlHeuristicEngine, ThemeHelper
+│       │   └── res/
+│       │       ├── layout/          # Layout XML (Premium Glassmorphism design)
+│       │       └── values/          # Colors, Strings (M3 Color Tokens)
+│       └── test/                    # JUnit local unit tests
+```
 
-- Android Studio Ladybug (2024.2.1) atau versi lebih baru.
-- Java Development Kit (JDK) 21.
+---
 
-### Konfigurasi API Key
+## 🚀 Panduan Instalasi & Persiapan
 
-Untuk alasan keamanan, API Key dikelola melalui `BuildConfig`. Silakan tambahkan kunci Anda sendiri untuk menjalankan aplikasi:
+### 1. Prasyarat System
+* **Android Studio Ladybug (2024.2.1)** atau lebih baru.
+* **JDK 21** terpasang dan dikonfigurasi sebagai JDK Gradle di Android Studio.
+* Smartphone fisik Android atau Emulator dengan **Android 9.0 (API 28)** atau lebih baru.
 
-1. Dapatkan API Key di [VirusTotal Community](https://www.virustotal.com/).
-2. Buka file `local.properties` di root folder project.
-3. Tambahkan baris berikut:
+### 2. Kunci API VirusTotal
+Agar pemindaian online berfungsi, Anda perlu mendaftarkan kunci API gratis Anda sendiri:
+1. Daftar akun gratis di [VirusTotal](https://www.virustotal.com/).
+2. Masuk ke menu profil Anda dan salin **API Key** yang disediakan.
+3. Di komputer Anda, buka file `local.properties` pada direktori root SafeLink:
    ```properties
-   VIRUSTOTAL_API_KEY=masukkan_api_key_anda_disini
+   # local.properties
+   sdk.dir=C\:\\Users\\NamaUser\\AppData\\Local\\Android\\Sdk
+   VIRUSTOTAL_API_KEY=MASUKKAN_API_KEY_VIRUSTOTAL_ANDA_DISINI
    ```
+*(Catatan: `local.properties` terdaftar di `.gitignore` secara default sehingga kunci API Anda tidak akan pernah bocor ke publik saat di-push ke GitHub).*
+
+### 3. Kompilasi & Jalankan Aplikasi
+Gunakan terminal untuk melakukan kompilasi proyek:
+```powershell
+# Jalankan kompilasi debug apk
+./gradlew assembleDebug
+```
+Atau klik tombol **Run** langsung di Android Studio.
+
+---
+
+## 🧪 Pengujian Kode (Unit Testing)
+
+Kami telah menyediakan suite pengujian lokal untuk menguji keakuratan deteksi heuristik dan formatting Base64:
+```powershell
+# Jalankan unit tests
+./gradlew testDebugUnitTest
+```
 
 ---
 
 <p align="center">
-  Made with ❤️ by <b>ShinZeleo</b>
+  Dibuat dengan penuh ❤️ oleh <b>ShinZeleo</b> untuk Keamanan Digital yang Lebih Baik.
 </p>
