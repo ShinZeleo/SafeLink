@@ -35,6 +35,7 @@ Menggunakan pustaka **ZXing (Zebra Crossing)** untuk memindai kode QR secara ins
 
 ### 🔐 Database Terenkripsi Tingkat Militer (SQLCipher)
 Semua riwayat pemindaian dan situs yang disimpan di bookmark diamankan menggunakan enkripsi **AES-256** melalui **SQLCipher**. Data tidak dapat diakses atau didekripsi oleh aplikasi lain di perangkat yang sama, menjamin kerahasiaan riwayat penelusuran Anda.
+* **Offline Cache (Migrasi v5)**: Menyimpan seluruh objek data respons JSON asli dari VirusTotal (`api_response_json`) pada tabel `history` dan `bookmarks`. Hal ini memungkinkan pengguna melihat detail pemindaian secara penuh dan interaktif meskipun sedang offline, tanpa membuang kuota panggilan API tambahan.
 
 ### 🌐 Safe Browser Internal
 Jika link dinyatakan aman atau pengguna bersikeras membukanya, SafeLink menyediakan Webview internal cerdas yang dilengkapi dengan pendeteksi heuristik untuk memblokir navigasi berbahaya secara instan jika mendeteksi anomali di tengah jalan.
@@ -156,10 +157,13 @@ Agar pemindaian online berfungsi, Anda perlu mendaftarkan kunci API gratis Anda 
 ### 3. Kompilasi & Jalankan Aplikasi
 Gunakan terminal untuk melakukan kompilasi proyek:
 ```powershell
-# Jalankan kompilasi debug apk
+# Jalankan kompilasi debug apk (Output: app/build/outputs/apk/debug/SafeLink-debug.apk)
 ./gradlew assembleDebug
+
+# Jalankan kompilasi release apk (Output: app/build/outputs/apk/release/SafeLink-release-unsigned.apk)
+./gradlew assembleRelease
 ```
-Atau klik tombol **Run** langsung di Android Studio.
+Atau klik tombol **Run** langsung di Android Studio. Hasil file APK secara otomatis diberi nama **SafeLink-debug.apk** atau **SafeLink-release-unsigned.apk** sesuai dengan tipe kompilasi yang dipilih.
 
 ---
 
