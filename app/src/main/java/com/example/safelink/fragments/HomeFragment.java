@@ -176,7 +176,8 @@ public class HomeFragment extends Fragment {
                 options.setCameraId(0);
                 options.setBeepEnabled(true);
                 options.setBarcodeImageEnabled(true);
-                options.setOrientationLocked(false);
+                options.setOrientationLocked(true); // Lock it completely
+                options.setCaptureActivity(com.example.safelink.activities.PortraitCaptureActivity.class);
                 barcodeLauncher.launch(options);
             });
         }
