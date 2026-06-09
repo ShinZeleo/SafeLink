@@ -65,4 +65,18 @@ public class DatabaseContract {
             COL_ADDED_AT + " TEXT NOT NULL" +
             ")";
     }
+
+    public static final class BlacklistEntry {
+        public static final String TABLE_NAME = "blacklist_domains";
+        public static final String COL_ID = "id";
+        public static final String COL_DOMAIN = "domain";
+        public static final String COL_ADDED_AT = "added_at";
+
+        public static final String CREATE_TABLE =
+            "CREATE TABLE " + TABLE_NAME + " (" +
+            COL_ID       + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COL_DOMAIN   + " TEXT NOT NULL UNIQUE, " +
+            COL_ADDED_AT + " TEXT NOT NULL" +
+            ")";
+    }
 }
