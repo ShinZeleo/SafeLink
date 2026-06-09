@@ -29,7 +29,8 @@ public class UrlHeuristicEngine {
             "google.com", "youtube.com", "facebook.com", "instagram.com",
             "twitter.com", "x.com", "bca.co.id", "mandiri.co.id", "bri.co.id",
             "microsoft.com", "apple.com", "amazon.com", "netflix.com",
-            "linkedin.com", "whatsapp.com", "telegram.org"
+            "linkedin.com", "whatsapp.com", "telegram.org", "tiktok.com",
+            "spotify.com", "yahoo.com"
     );
 
     // Feature 4: Phishing-related keywords commonly found in fake URLs
@@ -131,6 +132,9 @@ public class UrlHeuristicEngine {
 
         // 10. IDN Homograph attack check (+80)
         if (isIdnHomograph(host)) score += 80;
+
+        // 11. Typo-squatting detection (+80)
+        if (getTypoSquattedDomain(url, null) != null) score += 80;
 
         return Math.min(score, 100);
     }
