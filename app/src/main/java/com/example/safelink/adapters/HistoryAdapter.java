@@ -78,6 +78,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             tvUrl.setText(item.getUrl());
             tvTime.setText(DateFormatter.formatForDisplay(item.getScannedAt()));
 
+            itemView.setOnClickListener(v -> {
+                android.content.Intent intent = new android.content.Intent(itemView.getContext(), com.example.safelink.activities.ResultActivity.class);
+                intent.putExtra(com.example.safelink.activities.ResultActivity.EXTRA_URL, item.getUrl());
+                itemView.getContext().startActivity(intent);
+            });
+
             int colorRes;
             int bgRes;
             String label;

@@ -173,6 +173,7 @@ public class HomeFragment extends Fragment {
                 options.setCameraId(0);
                 options.setBeepEnabled(true);
                 options.setBarcodeImageEnabled(true);
+                options.setOrientationLocked(false);
                 barcodeLauncher.launch(options);
             });
         }
