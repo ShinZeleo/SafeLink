@@ -129,6 +129,9 @@ public class UrlHeuristicEngine {
         // 9. HTTP (not HTTPS) penalty (+10)
         if (lowerUrl.startsWith("http://")) score += 10;
 
+        // 10. IDN Homograph attack check (+80)
+        if (isIdnHomograph(host)) score += 80;
+
         return Math.min(score, 100);
     }
 
@@ -226,6 +229,26 @@ public class UrlHeuristicEngine {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * Feature: Detects IDN Homograph attacks.
+     * Flags domains that use Punycode (xn--) or contain non-ASCII characters
+     * which might be used to spoof legitimate domains.
+     */
+    private static boolean isIdnHomograph(String host) {
+        if (host == null || host.isEmpty()) return false;
+        
+        // Check for Punycode prefix
+        if (host.contains("xn--")) return true;
+        
+        // Check for non-ASCII characters (e.g., Cyrillic 'а', Greek)
+        for (char c : host.toCharArray()) {
+            if (c > 127) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static int calculateLevenshteinDistance(String s1, String s2) {
