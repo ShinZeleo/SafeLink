@@ -47,17 +47,17 @@ public class EngineResultAdapter extends RecyclerView.Adapter<EngineResultAdapte
             switch (item.category.toLowerCase()) {
                 case "malicious":
                     holder.tvCategory.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.accent_red, null));
-                    holder.tvCategory.setBackgroundResource(R.drawable.bg_status_dangerous);
+                    holder.tvCategory.setBackgroundResource(R.drawable.bg_badge_dangerous);
                     holder.viewDot.setBackgroundResource(R.drawable.bg_status_dangerous);
                     break;
                 case "suspicious":
                     holder.tvCategory.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.accent_orange, null));
-                    holder.tvCategory.setBackgroundResource(R.drawable.bg_status_suspicious);
+                    holder.tvCategory.setBackgroundResource(R.drawable.bg_badge_suspicious);
                     holder.viewDot.setBackgroundResource(R.drawable.bg_status_suspicious);
                     break;
                 case "harmless":
                     holder.tvCategory.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.accent_green, null));
-                    holder.tvCategory.setBackgroundResource(R.drawable.bg_status_safe);
+                    holder.tvCategory.setBackgroundResource(R.drawable.bg_badge_safe);
                     holder.viewDot.setBackgroundResource(R.drawable.bg_status_safe);
                     break;
                 default:
