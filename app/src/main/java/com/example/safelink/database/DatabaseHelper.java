@@ -1,8 +1,8 @@
 package com.example.safelink.database;
 
 import android.content.Context;
-import net.sqlcipher.database.SQLiteDatabase;
-import net.sqlcipher.database.SQLiteOpenHelper;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -10,12 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_PASSWORD = "safelink_secret_key_2026";
 
     public DatabaseHelper(Context context) {
-        super(context, DatabaseContract.DB_NAME, null, DB_VERSION);
-        try {
-            SQLiteDatabase.loadLibs(context);
-        } catch (Throwable t) {
-            android.util.Log.e("DatabaseHelper", "Failed to load SQLCipher libs: " + t.getMessage(), t);
-        }
+        super(context, DatabaseContract.DB_NAME, DB_PASSWORD, null, DB_VERSION, 0, null, null, false);
     }
 
     @Override

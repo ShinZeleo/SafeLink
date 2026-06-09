@@ -73,7 +73,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 
     // Database Encryption
-    implementation 'net.zetetic:android-database-sqlcipher:4.5.4'
+    implementation 'net.zetetic:sqlcipher-android:4.6.1'
     implementation 'androidx.sqlite:sqlite:2.4.0'
 
     // QR Code Scanner

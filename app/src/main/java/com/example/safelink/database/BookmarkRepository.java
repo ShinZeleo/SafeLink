@@ -3,7 +3,7 @@ package com.example.safelink.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import com.example.safelink.models.BookmarkModel;
 
@@ -22,7 +22,7 @@ public class BookmarkRepository {
         if (isBookmarked(bookmark.getUrl())) {
             return -1;
         }
-        SQLiteDatabase db = dbHelper.getWritableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseContract.BookmarkEntry.COL_URL, bookmark.getUrl());
         values.put(DatabaseContract.BookmarkEntry.COL_TITLE, bookmark.getTitle());
@@ -39,7 +39,7 @@ public class BookmarkRepository {
 
     public synchronized List<BookmarkModel> getAll() {
         List<BookmarkModel> list = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 DatabaseContract.BookmarkEntry.TABLE_NAME,
                 null, null, null, null, null,
@@ -57,7 +57,7 @@ public class BookmarkRepository {
     }
 
     public synchronized void delete(int id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(DatabaseContract.BookmarkEntry.TABLE_NAME,
                 DatabaseContract.BookmarkEntry.COL_ID + " = ?",
                 new String[]{String.valueOf(id)});
@@ -65,7 +65,7 @@ public class BookmarkRepository {
     }
     
     public synchronized boolean isBookmarked(String url) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 DatabaseContract.BookmarkEntry.TABLE_NAME,
                 new String[]{DatabaseContract.BookmarkEntry.COL_ID},

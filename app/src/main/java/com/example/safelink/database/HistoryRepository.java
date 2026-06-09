@@ -3,7 +3,7 @@ package com.example.safelink.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import com.example.safelink.models.HistoryModel;
 
@@ -19,7 +19,7 @@ public class HistoryRepository {
     }
 
     public synchronized long insert(HistoryModel history) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseContract.HistoryEntry.COL_URL, history.getUrl());
         values.put(DatabaseContract.HistoryEntry.COL_STATUS, history.getStatus());
@@ -34,7 +34,7 @@ public class HistoryRepository {
 
     public synchronized List<HistoryModel> getAll() {
         List<HistoryModel> list = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
         try {
             cursor = db.query(
@@ -57,7 +57,7 @@ public class HistoryRepository {
     public synchronized List<HistoryModel> getRecent(int limit) {
         List<HistoryModel> list = new ArrayList<>();
         try {
-            SQLiteDatabase db = dbHelper.getReadableDatabase(DatabaseHelper.DB_PASSWORD);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
             Cursor cursor = db.query(
                     DatabaseContract.HistoryEntry.TABLE_NAME,
                     null, null, null, null, null,
@@ -79,7 +79,7 @@ public class HistoryRepository {
     }
 
     public synchronized int countAll() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + DatabaseContract.HistoryEntry.TABLE_NAME, null);
         int count = 0;
         if (cursor.moveToFirst()) {
@@ -91,7 +91,7 @@ public class HistoryRepository {
     }
 
     public synchronized int countByStatus(String status) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(
                 "SELECT COUNT(*) FROM " + DatabaseContract.HistoryEntry.TABLE_NAME + 
                 " WHERE " + DatabaseContract.HistoryEntry.COL_STATUS + " = ?",
@@ -107,7 +107,7 @@ public class HistoryRepository {
     }
 
     public synchronized void delete(int id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(DatabaseContract.HistoryEntry.TABLE_NAME,
                 DatabaseContract.HistoryEntry.COL_ID + " = ?",
                 new String[]{String.valueOf(id)});
@@ -115,13 +115,13 @@ public class HistoryRepository {
     }
 
     public synchronized void clearAll() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(DatabaseContract.HistoryEntry.TABLE_NAME, null, null);
         db.close();
     }
 
     public synchronized HistoryModel findByUrl(String url) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase(DatabaseHelper.DB_PASSWORD);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 DatabaseContract.HistoryEntry.TABLE_NAME,
                 null,

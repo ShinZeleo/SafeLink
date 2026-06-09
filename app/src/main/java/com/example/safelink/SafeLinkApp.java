@@ -13,9 +13,9 @@ public class SafeLinkApp extends Application {
         DynamicColors.applyToActivitiesIfAvailable(this);
 
         try {
-            net.sqlcipher.database.SQLiteDatabase.loadLibs(this);
+            System.loadLibrary("sqlcipher");
         } catch (Throwable t) {
-            android.util.Log.e("SafeLinkApp", "Failed to load SQLCipher libs: " + t.getMessage(), t);
+            android.util.Log.e("SafeLinkApp", "Failed to load SQLCipher library: " + t.getMessage(), t);
         }
     }
 }
