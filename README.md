@@ -160,10 +160,10 @@ Gunakan terminal untuk melakukan kompilasi proyek:
 # Jalankan kompilasi debug apk (Output: app/build/outputs/apk/debug/SafeLink-debug.apk)
 ./gradlew assembleDebug
 
-# Jalankan kompilasi release apk (Output: app/build/outputs/apk/release/SafeLink-release-unsigned.apk)
+# Jalankan kompilasi release apk (Output: app/build/outputs/apk/release/SafeLink-release.apk)
 ./gradlew assembleRelease
 ```
-Atau klik tombol **Run** langsung di Android Studio. Hasil file APK secara otomatis diberi nama **SafeLink-debug.apk** atau **SafeLink-release-unsigned.apk** sesuai dengan tipe kompilasi yang dipilih.
+Atau klik tombol **Run** langsung di Android Studio. Hasil file APK secara otomatis diberi nama **SafeLink-debug.apk** atau **SafeLink-release.apk** sesuai dengan tipe kompilasi yang dipilih.
 
 ---
 
