@@ -296,6 +296,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void performScan(String url) {
+        performScan(url, false);
+    }
+
+    private void performScan(String url, boolean isRetry) {
         // VirusTotal v3 requires base64url encoded URL without padding
         String urlId = android.util.Base64.encodeToString(url.getBytes(), android.util.Base64.URL_SAFE | android.util.Base64.NO_PADDING | android.util.Base64.NO_WRAP);
         
@@ -303,8 +307,8 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(@NonNull Call<ApiResponse> call, @NonNull Response<ApiResponse> response) {
-                setLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
+                    setLoading(false);
                     ApiResponse apiResp = response.body();
                     ScanResult result = ScanResult.fromApiResponse(apiResp, url);
                     result.setScannedAt(DateFormatter.getCurrentTimestamp());
@@ -322,9 +326,14 @@ public class HomeFragment extends Fragment {
 
                     openResult(result, apiResp);
                 } else {
+                    if (response.code() == 404 && !isRetry) {
+                        submitNewSiteForScan(url);
+                        return;
+                    }
+                    setLoading(false);
                     String errorText;
                     if (response.code() == 401 || response.code() == 403) errorText = "API Key tidak valid atau Limit API tercapai.";
-                    else if (response.code() == 404) errorText = "URL belum pernah di-scan di VirusTotal (Not Found).";
+                    else if (response.code() == 404) errorText = "Pemindaian server memakan waktu lebih lama dari biasanya. Coba lagi dalam 1 menit.";
                     else if (response.code() == 429) errorText = "Terlalu banyak request. Silakan tunggu.";
                     else errorText = getString(R.string.error_api);
                     Toast.makeText(requireContext(), errorText, Toast.LENGTH_LONG).show();
@@ -338,6 +347,30 @@ public class HomeFragment extends Fragment {
                         ? getString(R.string.error_timeout)
                         : getString(R.string.error_api);
                 Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void submitNewSiteForScan(String url) {
+        Toast.makeText(requireContext(), "Situs baru terdeteksi. Sedang meminta analisis server...", Toast.LENGTH_LONG).show();
+        Call<okhttp3.ResponseBody> call = ApiClient.getService().submitUrl(url);
+        call.enqueue(new Callback<okhttp3.ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<okhttp3.ResponseBody> call, @NonNull Response<okhttp3.ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                        performScan(url, true);
+                    }, 10000);
+                } else {
+                    setLoading(false);
+                    Toast.makeText(requireContext(), "Gagal meminta analisis situs baru. Coba lagi.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<okhttp3.ResponseBody> call, @NonNull Throwable t) {
+                setLoading(false);
+                Toast.makeText(requireContext(), "Koneksi gagal saat submit URL.", Toast.LENGTH_LONG).show();
             }
         });
     }
