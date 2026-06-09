@@ -17,6 +17,14 @@ public class UrlHeuristicEngine {
             "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
     );
 
+    // Feature 5: Obfuscated IP (Integer or Hexadecimal)
+    private static final Pattern OBFUSCATED_IP_PATTERN = Pattern.compile("^\\d{8,11}$|^0x[0-9a-fA-F]{8}$");
+
+    // Feature 5: Malicious File Extensions
+    private static final String[] MALICIOUS_EXTENSIONS = {
+        ".apk", ".exe", ".bat", ".vbs", ".ps1", ".cmd", ".sh", ".bin", ".scr", ".jar"
+    };
+
     // Common shorteners
     private static final String[] SHORTENERS = {
             "bit.ly", "t.co", "tinyurl.com", "is.gd", "goo.gl", "ow.ly",
@@ -39,14 +47,17 @@ public class UrlHeuristicEngine {
             "account", "banking", "password", "credential", "wallet",
             "suspend", "unlock", "validate", "alert", "urgent",
             "limited", "offer", "free", "prize", "winner", "click",
-            "support", "helpdesk", "recovery", "authenticate"
+            "support", "helpdesk", "recovery", "authenticate",
+            "invoice", "refund", "kyc", "banned", "blocked", "bonus", "claim",
+            "auth", "security", "billing", "payment", "webmail"
     };
 
     // Feature 4: Suspicious top-level domains often used for malicious sites
     private static final String[] SUSPICIOUS_TLDS = {
             ".tk", ".ml", ".ga", ".cf", ".gq", ".xyz", ".top", ".club",
             ".work", ".date", ".review", ".stream", ".download", ".zip",
-            ".mov", ".gdn", ".bid", ".loan", ".win", ".racing", ".trade"
+            ".mov", ".gdn", ".bid", ".loan", ".win", ".racing", ".trade",
+            ".cc", ".su", ".pw", ".cn", ".ru", ".site", ".online", ".website", ".space", ".click"
     };
 
     // -------------------------------------------------------------------------
@@ -135,6 +146,38 @@ public class UrlHeuristicEngine {
 
         // 11. Typo-squatting detection (+80)
         if (getTypoSquattedDomain(url, null) != null) score += 80;
+
+        // 12. Obfuscated IP check (+60)
+        if (OBFUSCATED_IP_PATTERN.matcher(host).matches()) score += 60;
+
+        // 13. Open redirect patterns (+15)
+        if (lowerUrl.contains("?url=") || lowerUrl.contains("&url=") ||
+            lowerUrl.contains("?redirect=") || lowerUrl.contains("&redirect=") ||
+            lowerUrl.contains("?next=") || lowerUrl.contains("&next=")) {
+            score += 15;
+        }
+
+        // 14. Credential inclusion in URL (+50)
+        try {
+            java.net.URL u = new java.net.URL(url);
+            if (u.getUserInfo() != null && !u.getUserInfo().isEmpty()) score += 50;
+        } catch (Exception e) {
+            if (url.matches("^https?://[^/]+@.*")) score += 50;
+        }
+
+        // 15. Malicious file extensions (+35)
+        try {
+            java.net.URL u = new java.net.URL(url);
+            String path = u.getPath().toLowerCase();
+            for (String ext : MALICIOUS_EXTENSIONS) {
+                if (path.endsWith(ext)) {
+                    score += 35;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // Abaikan parsing error
+        }
 
         return Math.min(score, 100);
     }
