@@ -16,6 +16,7 @@ public class DatabaseContract {
         public static final String COL_RISK_LEVEL  = "risk_level";
         public static final String COL_RECOMMEND   = "recommendation";
         public static final String COL_SCANNED_AT  = "scanned_at";
+        public static final String COL_API_RESPONSE = "api_response_json";
 
         public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -24,7 +25,8 @@ public class DatabaseContract {
             COL_STATUS     + " TEXT NOT NULL, " +
             COL_RISK_LEVEL + " TEXT, " +
             COL_RECOMMEND  + " TEXT, " +
-            COL_SCANNED_AT + " TEXT NOT NULL" +
+            COL_SCANNED_AT + " TEXT NOT NULL, " +
+            COL_API_RESPONSE + " TEXT" +
             ")";
     }
 
@@ -38,6 +40,7 @@ public class DatabaseContract {
         public static final String COL_FAVICON     = "favicon";
         public static final String COL_STATUS      = "status";
         public static final String COL_SCANNED_AT  = "scanned_at";
+        public static final String COL_API_RESPONSE = "api_response_json";
 
         public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -48,7 +51,8 @@ public class DatabaseContract {
             COL_NOTES      + " TEXT, " +
             COL_FAVICON    + " TEXT, " +
             COL_STATUS     + " TEXT, " +
-            COL_SCANNED_AT + " TEXT" +
+            COL_SCANNED_AT + " TEXT, " +
+            COL_API_RESPONSE + " TEXT" +
             ")";
     }
 

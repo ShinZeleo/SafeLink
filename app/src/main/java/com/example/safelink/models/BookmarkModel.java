@@ -9,10 +9,11 @@ public class BookmarkModel {
     private String faviconUrl;
     private String status;
     private String scannedAt;
+    private String apiResponseJson;
 
     public BookmarkModel() {}
 
-    public BookmarkModel(int id, String url, String title, String category, String notes, String faviconUrl, String status, String scannedAt) {
+    public BookmarkModel(int id, String url, String title, String category, String notes, String faviconUrl, String status, String scannedAt, String apiResponseJson) {
         this.id = id;
         this.url = url;
         this.title = title;
@@ -21,6 +22,7 @@ public class BookmarkModel {
         this.faviconUrl = faviconUrl;
         this.status = status;
         this.scannedAt = scannedAt;
+        this.apiResponseJson = apiResponseJson;
     }
 
     public int getId() { return id; }
@@ -39,4 +41,6 @@ public class BookmarkModel {
     public void setStatus(String status) { this.status = status; }
     public String getScannedAt() { return scannedAt; }
     public void setScannedAt(String scannedAt) { this.scannedAt = scannedAt; }
+    public String getApiResponseJson() { return apiResponseJson; }
+    public void setApiResponseJson(String apiResponseJson) { this.apiResponseJson = apiResponseJson; }
 }

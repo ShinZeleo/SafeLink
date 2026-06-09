@@ -26,6 +26,7 @@ public class HistoryRepository {
         values.put(DatabaseContract.HistoryEntry.COL_RISK_LEVEL, history.getRiskLevel());
         values.put(DatabaseContract.HistoryEntry.COL_RECOMMEND, history.getRecommendation());
         values.put(DatabaseContract.HistoryEntry.COL_SCANNED_AT, history.getScannedAt());
+        values.put(DatabaseContract.HistoryEntry.COL_API_RESPONSE, history.getApiResponseJson());
         
         long id = db.insert(DatabaseContract.HistoryEntry.TABLE_NAME, null, values);
         db.close();
@@ -148,7 +149,8 @@ public class HistoryRepository {
                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.HistoryEntry.COL_STATUS)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.HistoryEntry.COL_RISK_LEVEL)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.HistoryEntry.COL_RECOMMEND)),
-                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.HistoryEntry.COL_SCANNED_AT))
+                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.HistoryEntry.COL_SCANNED_AT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.HistoryEntry.COL_API_RESPONSE))
         );
     }
 }

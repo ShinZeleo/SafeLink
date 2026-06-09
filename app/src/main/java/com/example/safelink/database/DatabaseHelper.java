@@ -6,7 +6,7 @@ import net.zetetic.database.sqlcipher.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DB_VERSION = 4; // Bumped to 4
+    public static final int DB_VERSION = 5; // Bumped to 5
     public static final String DB_PASSWORD = "safelink_secret_key_2026";
 
     public DatabaseHelper(Context context) {
@@ -31,6 +31,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         if (oldVersion < 4) {
             db.execSQL(DatabaseContract.BlacklistEntry.CREATE_TABLE);
+        }
+        if (oldVersion < 5) {
+            db.execSQL("ALTER TABLE " + DatabaseContract.HistoryEntry.TABLE_NAME + " ADD COLUMN " + DatabaseContract.HistoryEntry.COL_API_RESPONSE + " TEXT");
+            db.execSQL("ALTER TABLE " + DatabaseContract.BookmarkEntry.TABLE_NAME + " ADD COLUMN " + DatabaseContract.BookmarkEntry.COL_API_RESPONSE + " TEXT");
         }
     }
 }

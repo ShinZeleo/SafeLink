@@ -31,6 +31,7 @@ public class BookmarkRepository {
         values.put(DatabaseContract.BookmarkEntry.COL_FAVICON, bookmark.getFaviconUrl());
         values.put(DatabaseContract.BookmarkEntry.COL_STATUS, bookmark.getStatus());
         values.put(DatabaseContract.BookmarkEntry.COL_SCANNED_AT, bookmark.getScannedAt());
+        values.put(DatabaseContract.BookmarkEntry.COL_API_RESPONSE, bookmark.getApiResponseJson());
         
         long id = db.insert(DatabaseContract.BookmarkEntry.TABLE_NAME, null, values);
         db.close();
@@ -88,7 +89,8 @@ public class BookmarkRepository {
                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.BookmarkEntry.COL_NOTES)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.BookmarkEntry.COL_FAVICON)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.BookmarkEntry.COL_STATUS)),
-                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.BookmarkEntry.COL_SCANNED_AT))
+                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.BookmarkEntry.COL_SCANNED_AT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.BookmarkEntry.COL_API_RESPONSE))
         );
     }
 }

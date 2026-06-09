@@ -321,6 +321,7 @@ public class HomeFragment extends Fragment {
                         history.setRiskLevel(result.getRiskLevel());
                         history.setRecommendation(result.getRecommendation());
                         history.setScannedAt(result.getScannedAt());
+                        history.setApiResponseJson(new com.google.gson.Gson().toJson(apiResp));
                         repo.insert(history);
                     });
 
@@ -400,6 +401,9 @@ public class HomeFragment extends Fragment {
         intent.putExtra(ResultActivity.EXTRA_RISK_LEVEL, item.getRiskLevel());
         intent.putExtra(ResultActivity.EXTRA_RECOMMENDATION, item.getRecommendation());
         intent.putExtra(ResultActivity.EXTRA_SCANNED_AT, item.getScannedAt());
+        if (item.getApiResponseJson() != null) {
+            intent.putExtra(ResultActivity.EXTRA_API_RESPONSE_JSON, item.getApiResponseJson());
+        }
         startActivity(intent);
     }
 

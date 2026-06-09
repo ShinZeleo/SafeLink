@@ -196,7 +196,8 @@ public class ResultActivity extends AppCompatActivity {
     private void saveToHistory() {
         executor.execute(() -> {
             HistoryRepository repo = new HistoryRepository(this);
-            HistoryModel model = new HistoryModel(0, url, status, risk, recommendation, scannedAt);
+            String apiJson = apiResponse != null ? new Gson().toJson(apiResponse) : null;
+            HistoryModel model = new HistoryModel(0, url, status, risk, recommendation, scannedAt, apiJson);
             repo.insert(model);
             runOnUiThread(() -> Toast.makeText(this, "Berhasil disimpan ke riwayat", Toast.LENGTH_SHORT).show());
         });
@@ -210,6 +211,9 @@ public class ResultActivity extends AppCompatActivity {
             model.setScannedAt(scannedAt);
             model.setStatus(status);
             model.setTitle("Bookmarked URL");
+            if (apiResponse != null) {
+                model.setApiResponseJson(new Gson().toJson(apiResponse));
+            }
             repo.insert(model);
             runOnUiThread(() -> Toast.makeText(this, "Berhasil disimpan ke bookmark", Toast.LENGTH_SHORT).show());
         });

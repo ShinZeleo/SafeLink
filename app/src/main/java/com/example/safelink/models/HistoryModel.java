@@ -8,18 +8,20 @@ public class HistoryModel {
     private String riskLevel;
     private String recommendation;
     private String scannedAt;
+    private String apiResponseJson;
 
     public HistoryModel() {
     }
 
     public HistoryModel(int id, String url, String status,
-                        String riskLevel, String recommendation, String scannedAt) {
+                        String riskLevel, String recommendation, String scannedAt, String apiResponseJson) {
         this.id = id;
         this.url = url;
         this.status = status;
         this.riskLevel = riskLevel;
         this.recommendation = recommendation;
         this.scannedAt = scannedAt;
+        this.apiResponseJson = apiResponseJson;
     }
 
     public int getId() {
@@ -68,5 +70,13 @@ public class HistoryModel {
 
     public void setScannedAt(String scannedAt) {
         this.scannedAt = scannedAt;
+    }
+
+    public String getApiResponseJson() {
+        return apiResponseJson;
+    }
+
+    public void setApiResponseJson(String apiResponseJson) {
+        this.apiResponseJson = apiResponseJson;
     }
 }
