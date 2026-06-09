@@ -31,4 +31,16 @@ public class SecurityLogicTest {
         String normal = UrlHeuristicEngine.getTypoSquattedDomain("https://google.com", null);
         assertNull(normal);
     }
+
+    @Test
+    public void testIdnHomographDetection() {
+        // Punycode representation of homograph domain
+        assertTrue(UrlHeuristicEngine.isSuspicious("https://xn--pypal-4ve.com")); // Punycode
+        
+        // Non-ASCII Cyrillic 'а' character domain
+        assertTrue(UrlHeuristicEngine.isSuspicious("https://pаypal.com")); // contains Cyrillic 'a' (non-ASCII)
+        
+        // Plain ASCII domain should not trigger homograph alert
+        assertFalse(UrlHeuristicEngine.isSuspicious("https://paypal.com"));
+    }
 }
