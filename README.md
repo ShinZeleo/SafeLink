@@ -61,40 +61,6 @@ graph TD
     I --> J[Simpan Hasil Scan Terenkripsi ke SQLite]
     J --> K[Tampilkan Hasil Detil di ResultActivity]
 ```
-
----
-
-## 📱 Tampilan Aplikasi (Screenshots)
-
-<p align="center">
-  <table align="center" style="border-collapse: collapse; border: none;">
-    <tr style="border: none;">
-      <td align="center" style="border: none; padding: 10px;"><b>Beranda (Home)</b></td>
-      <td align="center" style="border: none; padding: 10px;"><b>Pencarian / Scan</b></td>
-      <td align="center" style="border: none; padding: 10px;"><b>Hasil Scan</b></td>
-      <td align="center" style="border: none; padding: 10px;"><b>Analisis Detail</b></td>
-    </tr>
-    <tr style="border: none;">
-      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_1.png" width="180" alt="Home Screen" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
-      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_2.png" width="180" alt="Scanning" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
-      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_3.png" width="180" alt="Scan Results" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
-      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_4.png" width="180" alt="Analysis Details" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
-    </tr>
-    <tr style="border: none;">
-      <td align="center" style="border: none; padding: 10px;"><b>Simpan Bookmark</b></td>
-      <td align="center" style="border: none; padding: 10px;"><b>Daftar Bookmark</b></td>
-      <td align="center" style="border: none; padding: 10px;"><b>Kategori Bookmark</b></td>
-      <td align="center" style="border: none; padding: 10px;"><b>Webview Cerdas</b></td>
-    </tr>
-    <tr style="border: none;">
-      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_5.png" width="180" alt="Bookmark Save" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
-      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_6.png" width="180" alt="Bookmark List" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
-      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_7.png" width="180" alt="Bookmark Categories" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
-      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_8.png" width="180" alt="Safe Webview" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
-    </tr>
-  </table>
-</p>
-
 ---
 
 ## 🛠️ Arsitektur & Teknologi
