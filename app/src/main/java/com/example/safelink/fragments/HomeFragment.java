@@ -1,5 +1,6 @@
 package com.example.safelink.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -111,6 +112,7 @@ public class HomeFragment extends Fragment {
         view.animate().alpha(1f).setDuration(500).start();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupListeners(View btnScanQr, View btnSeeAll) {
         etUrl.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -145,7 +147,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btnScan.setOnTouchListener((v, event) -> {
+        View.OnTouchListener touchListener = (v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     v.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.button_press));
@@ -158,8 +160,9 @@ public class HomeFragment extends Fragment {
                     v.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.button_release));
                     break;
             }
-            return true;
-        });
+            return false;
+        };
+        btnScan.setOnTouchListener(touchListener);
 
         btnScan.setOnClickListener(v -> onScanClicked());
 

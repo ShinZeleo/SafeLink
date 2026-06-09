@@ -21,6 +21,7 @@
             android:alpha="0.1"
             android:background="@drawable/bg_badge_safe" />
         <ImageView
+        android:importantForAccessibility="no"
             android:id="@+id/iv_favicon"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -88,6 +89,7 @@
     </LinearLayout>
 
     <ImageView
+        android:importantForAccessibility="no"
         android:id="@+id/btn_more"
         android:layout_width="32dp"
         android:layout_height="32dp"

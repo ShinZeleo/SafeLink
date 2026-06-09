@@ -69,6 +69,7 @@
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground">
                     <ImageView
+        android:importantForAccessibility="no"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
@@ -316,6 +317,7 @@
                 android:elevation="4dp">
                 
                 <ImageView
+        android:importantForAccessibility="no"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_nav_tips"
@@ -396,6 +398,7 @@
                 android:background="@drawable/bg_glass_card"
                 android:alpha="0.6">
                 <ImageView
+        android:importantForAccessibility="no"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_nav_history"
