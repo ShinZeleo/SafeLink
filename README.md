@@ -13,6 +13,8 @@
   <img src="https://img.shields.io/badge/Language-Java_21-orange?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
   <img src="https://img.shields.io/badge/Security-SQLCipher_AES--256-blue?style=for-the-badge&logo=sqlite&logoColor=white" alt="Security" />
   <img src="https://img.shields.io/badge/API-VirusTotal_v3-red?style=for-the-badge&logo=virustotal&logoColor=white" alt="VirusTotal" />
+  <img src="https://img.shields.io/badge/Build-Gradle_9.4-purple?style=for-the-badge&logo=gradle&logoColor=white" alt="Gradle" />
+  <img src="https://img.shields.io/badge/Design-Material_3_&_Glassmorphism-ff69b4?style=for-the-badge&logo=material-design&logoColor=white" alt="Design" />
 </p>
 
 ---
@@ -62,6 +64,39 @@ graph TD
 
 ---
 
+## 📱 Tampilan Aplikasi (Screenshots)
+
+<p align="center">
+  <table align="center" style="border-collapse: collapse; border: none;">
+    <tr style="border: none;">
+      <td align="center" style="border: none; padding: 10px;"><b>Beranda (Home)</b></td>
+      <td align="center" style="border: none; padding: 10px;"><b>Pencarian / Scan</b></td>
+      <td align="center" style="border: none; padding: 10px;"><b>Hasil Scan</b></td>
+      <td align="center" style="border: none; padding: 10px;"><b>Analisis Detail</b></td>
+    </tr>
+    <tr style="border: none;">
+      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_1.png" width="180" alt="Home Screen" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
+      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_2.png" width="180" alt="Scanning" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
+      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_3.png" width="180" alt="Scan Results" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
+      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_4.png" width="180" alt="Analysis Details" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
+    </tr>
+    <tr style="border: none;">
+      <td align="center" style="border: none; padding: 10px;"><b>Simpan Bookmark</b></td>
+      <td align="center" style="border: none; padding: 10px;"><b>Daftar Bookmark</b></td>
+      <td align="center" style="border: none; padding: 10px;"><b>Kategori Bookmark</b></td>
+      <td align="center" style="border: none; padding: 10px;"><b>Webview Cerdas</b></td>
+    </tr>
+    <tr style="border: none;">
+      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_5.png" width="180" alt="Bookmark Save" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
+      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_6.png" width="180" alt="Bookmark List" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
+      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_7.png" width="180" alt="Bookmark Categories" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
+      <td style="border: none; padding: 10px;"><img src="screenshots/screenshot_8.png" width="180" alt="Safe Webview" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" /></td>
+    </tr>
+  </table>
+</p>
+
+---
+
 ## 🛠️ Arsitektur & Teknologi
 
 SafeLink menggunakan arsitektur modern berorientasi performa tinggi untuk mencegah *Application Not Responding (ANR)*:
@@ -71,6 +106,52 @@ SafeLink menggunakan arsitektur modern berorientasi performa tinggi untuk menceg
 * **ExecutorService Thread Pool**: Menghindari pemrosesan database dan API pada main thread.
 * **Lottie Animations**: Animasi pemindaian menggunakan file JSON vektor berukuran sangat ringan namun memberikan pengalaman visual berkualitas tinggi.
 * **ThemeHelper & Dynamic Colors**: Dukungan tema Gelap/Terang adaptif serta integrasi warna dinamis Material 3 (menyesuaikan warna wallpaper perangkat pada Android 12+).
+
+---
+
+## 🗄️ Skema Database Terenkripsi (SQLCipher)
+
+Database SafeLink diamankan sepenuhnya menggunakan library **SQLCipher** dengan algoritma enkripsi **AES-256**. Keamanan riwayat pemindaian dan bookmark dijamin tidak dapat dibaca oleh aplikasi luar tanpa otentikasi kunci yang valid.
+
+### Riwayat Migrasi Database (`DatabaseHelper.java`)
+Seiring pengembangan, database mengalami pembaruan terstruktur melalui siklus hidup versi:
+* **Database Version 1 (v1)**: Pembuatan tabel `history` utama.
+* **Database Version 2 (v2)**: Penambahan tabel `bookmarks` untuk menyimpan tautan favorit pengguna.
+* **Database Version 3 (v3)**: Penambahan tabel `trusted_domains` untuk menangani *domain daftar putih*.
+* **Database Version 4 (v4)**: Penambahan tabel `blacklist_domains` untuk memblokir cepat *domain daftar hitam*.
+* **Database Version 5 (v5)**: Penambahan kolom `api_response_json` pada tabel `history` dan `bookmarks` untuk penyimpanan offline respon analitik VirusTotal secara penuh.
+
+### Deskripsi Tabel & Kolom Utama
+
+#### 1. Tabel `history` (Riwayat Scan)
+Menyimpan riwayat pemindaian URL pengguna.
+| Nama Kolom | Tipe Data | Deskripsi |
+|---|---|---|
+| `id` | `INTEGER PRIMARY KEY` | ID unik auto-increment |
+| `url` | `TEXT NOT NULL` | Tautan URL penuh yang dipindai |
+| `status` | `TEXT NOT NULL` | Status akhir pemindaian (misal: "Safe", "Malicious") |
+| `risk_level` | `TEXT` | Tingkat risiko (misal: "LOW", "HIGH") |
+| `recommendation` | `TEXT` | Rekomendasi tindakan pengguna |
+| `scanned_at` | `TEXT NOT NULL` | Cap waktu tanggal & waktu pemindaian |
+| `api_response_json` | `TEXT` | Cache respons mentah JSON dari API VirusTotal (Offline Mode) |
+
+#### 2. Tabel `bookmarks` (Bookmark URL)
+Menyimpan tautan yang ditandai atau difavoritkan pengguna.
+| Nama Kolom | Tipe Data | Deskripsi |
+|---|---|---|
+| `id` | `INTEGER PRIMARY KEY` | ID unik auto-increment |
+| `url` | `TEXT NOT NULL` | Tautan URL |
+| `title` | `TEXT` | Judul kustom bookmark |
+| `category` | `TEXT` | Kategori bookmark (misal: "Work", "Sosmed") |
+| `notes` | `TEXT` | Catatan tambahan pengguna |
+| `favicon` | `TEXT` | URL/Path dari ikon website (jika ada) |
+| `status` | `TEXT` | Status terakhir link |
+| `scanned_at` | `TEXT` | Tanggal pemindaian terakhir |
+| `api_response_json` | `TEXT` | Cache respons mentah JSON dari API VirusTotal (Offline Mode) |
+
+#### 3. Tabel `trusted_domains` & `blacklist_domains`
+Menyimpan pengecualian pemindaian lokal pengguna.
+* **Kolom**: `id` (`INTEGER PRIMARY KEY`), `domain` (`TEXT NOT NULL UNIQUE`), `added_at` (`TEXT NOT NULL`).
 
 ---
 
@@ -122,7 +203,7 @@ SafeLink/
 │       │   ├── java/com/example/safelink/
 │       │   │   ├── activities/      # Splash, Main, Result, SafeBrowser
 │       │   │   ├── adapters/        # HistoryAdapter, EngineResultAdapter
-│       │   │   ├── database/        # HistoryRepository, EncryptedDbHelper
+│       │   │   ├── database/        # HistoryRepository, DatabaseHelper
 │       │   │   ├── fragments/       # HomeFragment, HistoryFragment, BookmarkFragment
 │       │   │   ├── models/          # ApiResponse, ScanResult, HistoryModel
 │       │   │   ├── network/         # ApiClient, ApiService, RetrofitInstance
