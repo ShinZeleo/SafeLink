@@ -285,7 +285,7 @@ public class HomeFragment extends Fragment {
                     getActivity().runOnUiThread(() -> {
                         if (!NetworkHelper.isConnected(requireContext())) {
                             setLoading(false);
-                            Toast.makeText(requireContext(), getString(R.string.error_no_internet), Toast.LENGTH_LONG).show();
+                            showNoInternetDialog(url);
                             return;
                         }
                         performScan(url);
@@ -344,10 +344,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<ApiResponse> call, @NonNull Throwable t) {
                 setLoading(false);
-                String msg = t.getMessage() != null && t.getMessage().contains("timeout")
-                        ? getString(R.string.error_timeout)
-                        : getString(R.string.error_api);
-                Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show();
+                if (!NetworkHelper.isConnected(requireContext())) {
+                    showNoInternetDialog(url);
+                } else {
+                    String msg = t.getMessage() != null && t.getMessage().contains("timeout")
+                            ? getString(R.string.error_timeout)
+                            : getString(R.string.error_api);
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -493,6 +497,21 @@ public class HomeFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        });
+    }
+
+    private void showNoInternetDialog(final String url) {
+        if (getActivity() == null) return;
+        getActivity().runOnUiThread(() -> {
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Koneksi Internet Terputus")
+                    .setMessage("Aplikasi gagal memanggil API karena tidak ada jaringan internet. Pastikan perangkat Anda terhubung dengan internet dan coba lagi.")
+                    .setPositiveButton("Refresh", (dialog, which) -> {
+                        checkCacheAndScan(url);
+                    })
+                    .setNegativeButton("Batal", (dialog, which) -> dialog.dismiss())
+                    .setCancelable(false)
+                    .show();
         });
     }
 }
